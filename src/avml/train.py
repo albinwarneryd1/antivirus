@@ -53,7 +53,8 @@ class ModelTrainer:
             y,
             test_size=self.cfg.test_size,
             random_state=self.cfg.random_state,
-            stratify=y if y.nunique() > 1 else None,
+            stratify=y if y.nunique() > 1 and y.value_counts().min() >= 2 else None,
+
         )
 
         model = RandomForestClassifier(
